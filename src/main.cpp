@@ -1,63 +1,27 @@
+#include <iostream>
 #include "raylib-cpp.hpp"
 
-#if defined(PLATFORM_WEB)
-	#include <emscripten/emscripten.h>
-#endif
+using namespace std;
 
-//----------------------------------------------------------------------------------
-// Global Variables Definition
-//----------------------------------------------------------------------------------
-int screenWidth = 800;
-int screenHeight = 450;
+int main(int argc, const char** argv) {
+	cout << "starting up program" << endl;
 
-//----------------------------------------------------------------------------------
-// Module Functions Declaration
-//----------------------------------------------------------------------------------
-void UpdateDrawFrame(void);     // Update and Draw one frame
+	int winWidth = 450;
+	int winLength = 500;
 
-//----------------------------------------------------------------------------------
-// Main Entry Point
-//----------------------------------------------------------------------------------
-int main()
-{
-	// Initialization
-	//--------------------------------------------------------------------------------------
-	raylib::Window window(screenWidth, screenHeight, "raylib-cpp [core] example - basic window");
+	SetTargetFPS(60);
 
-#if defined(PLATFORM_WEB)
-	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
-#else
-	SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
-	//--------------------------------------------------------------------------------------
+	raylib::Window window(winWidth, winLength, "Test");
 
-	// Main game loop
-	while (!window.ShouldClose())    // Detect window close button or ESC key
-	{
-		UpdateDrawFrame();
+	while (!window.ShouldClose()){
+		BeginDrawing();
+
+		window.ClearBackground(RAYWHITE);
+
+		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+
+		EndDrawing();
 	}
-#endif
 
 	return 0;
-}
-
-//----------------------------------------------------------------------------------
-// Module Functions Definition
-//----------------------------------------------------------------------------------
-void UpdateDrawFrame(void)
-{
-	// Update
-	//----------------------------------------------------------------------------------
-	// TODO: Update your variables here
-	//----------------------------------------------------------------------------------
-
-	// Draw
-	//----------------------------------------------------------------------------------
-	BeginDrawing();
-
-		ClearBackground(RAYWHITE);
-
-		DrawText("fuck", 190, 200, 20, LIGHTGRAY);
-
-	EndDrawing();
-	//----------------------------------------------------------------------------------
 }
